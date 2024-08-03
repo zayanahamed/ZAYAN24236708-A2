@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -6,7 +7,7 @@ public class Ride implements RideInterface {
     private String rideType;
     private Employee operator;
     private Queue<Visitor> queue;
-    private Queue<Visitor> rideHistory; // Track visitors who have taken the ride
+    private LinkedList<Visitor> rideHistory; // Track visitors who have taken the ride
 
     // Default constructor
     public Ride() {
@@ -95,8 +96,27 @@ public class Ride implements RideInterface {
     @Override
     public void printRideHistory() {
         System.out.println("Ride history: ");
-        for (Visitor v : rideHistory) {
-            System.out.println("Name: " + v.getName() + ", Age: " + v.getAge() + ", Address: " + v.getAddress());
+        Iterator<Visitor> iterator = rideHistory.iterator();
+        while (iterator.hasNext()) {
+            Visitor visitor = iterator.next();
+            System.out.println("Name: " + visitor.getName() + ", Age: " + visitor.getAge() + ", Address: " + visitor.getAddress());
         }
+    }
+
+    // New methods for Part 4A
+    public void addVisitorToHistory(Visitor visitor) {
+        if (rideHistory.add(visitor)) {
+            System.out.println("Visitor " + visitor.getName() + " has been added to the ride history.");
+        } else {
+            System.out.println("Failed to add visitor " + visitor.getName() + " to the ride history.");
+        }
+    }
+
+    public boolean isVisitorInHistory(Visitor visitor) {
+        return rideHistory.contains(visitor);
+    }
+
+    public int getNumberOfVisitorsInHistory() {
+        return rideHistory.size();
     }
 }
