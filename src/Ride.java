@@ -1,17 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Ride implements RideInterface {
     private String rideName;
     private String rideType;
     private Employee operator;
-    private List<Visitor> queue;
-    private List<Visitor> rideHistory;
+    private Queue<Visitor> queue;
+    private Queue<Visitor> rideHistory; // Track visitors who have taken the ride
 
     // Default constructor
     public Ride() {
-        this.queue = new ArrayList<>();
-        this.rideHistory = new ArrayList<>();
+        this.queue = new LinkedList<>();
+        this.rideHistory = new LinkedList<>();
     }
 
     // Parameterized constructor
@@ -19,8 +19,8 @@ public class Ride implements RideInterface {
         this.rideName = rideName;
         this.rideType = rideType;
         this.operator = operator;
-        this.queue = new ArrayList<>();
-        this.rideHistory = new ArrayList<>();
+        this.queue = new LinkedList<>();
+        this.rideHistory = new LinkedList<>();
     }
 
     // Getters and setters
@@ -56,28 +56,35 @@ public class Ride implements RideInterface {
     // Interface methods
     @Override
     public void addVisitorToQueue(Visitor visitor) {
-        queue.add(visitor);
+        if (queue.add(visitor)) {
+            System.out.println("Visitor " + visitor.getName() + " has been added to the queue.");
+        } else {
+            System.out.println("Failed to add visitor " + visitor.getName() + " to the queue.");
+        }
     }
 
     @Override
     public void removeVisitorFromQueue(Visitor visitor) {
-        queue.remove(visitor);
+        if (queue.remove(visitor)) {
+            System.out.println("Visitor " + visitor.getName() + " has been removed from the queue.");
+        } else {
+            System.out.println("Visitor " + visitor.getName() + " is not in the queue.");
+        }
     }
 
     @Override
     public void printQueue() {
         System.out.println("Queue: ");
         for (Visitor v : queue) {
-            System.out.println(v.getName());
+            System.out.println("Name: " + v.getName() + ", Age: " + v.getAge() + ", Address: " + v.getAddress());
         }
     }
 
     @Override
     public void runOneCycle() {
         System.out.println("Running one cycle of the ride...");
-        // Simulate one cycle of the ride
         if (!queue.isEmpty()) {
-            Visitor visitor = queue.remove(0);
+            Visitor visitor = queue.poll(); // Retrieve and remove the head of the queue
             rideHistory.add(visitor);
             System.out.println("Visitor " + visitor.getName() + " took the ride.");
         } else {
@@ -89,7 +96,7 @@ public class Ride implements RideInterface {
     public void printRideHistory() {
         System.out.println("Ride history: ");
         for (Visitor v : rideHistory) {
-            System.out.println(v.getName());
+            System.out.println("Name: " + v.getName() + ", Age: " + v.getAge() + ", Address: " + v.getAddress());
         }
     }
 }
