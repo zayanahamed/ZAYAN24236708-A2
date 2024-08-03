@@ -9,20 +9,26 @@ public class Ride implements RideInterface {
     private Employee operator;
     private Queue<Visitor> queue;
     private LinkedList<Visitor> rideHistory;
+    private int maxRider;
+    private int numOfCycles;
 
     // Default constructor
     public Ride() {
         this.queue = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
+        this.maxRider = 1; // Default value
+        this.numOfCycles = 0;
     }
 
     // Parameterized constructor
-    public Ride(String rideName, String rideType, Employee operator) {
+    public Ride(String rideName, String rideType, Employee operator, int maxRider) {
         this.rideName = rideName;
         this.rideType = rideType;
         this.operator = operator;
         this.queue = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
+        this.maxRider = maxRider;
+        this.numOfCycles = 0;
     }
 
     // Getters and setters
@@ -48,6 +54,18 @@ public class Ride implements RideInterface {
 
     public void setOperator(Employee operator) {
         this.operator = operator;
+    }
+
+    public int getMaxRider() {
+        return maxRider;
+    }
+
+    public void setMaxRider(int maxRider) {
+        this.maxRider = maxRider;
+    }
+
+    public int getNumOfCycles() {
+        return numOfCycles;
     }
 
     // Method to assign an Employee to operate the ride
@@ -84,14 +102,26 @@ public class Ride implements RideInterface {
 
     @Override
     public void runOneCycle() {
-        System.out.println("Running one cycle of the ride...");
-        if (!queue.isEmpty()) {
+        if (operator == null) {
+            System.out.println("No ride operator assigned. Cannot run the ride.");
+            return;
+        }
+
+        if (queue.isEmpty()) {
+            System.out.println("No visitors in the queue. Cannot run the ride.");
+            return;
+        }
+
+        int count = 0;
+        while (count < maxRider && !queue.isEmpty()) {
             Visitor visitor = queue.poll();
             rideHistory.add(visitor);
             System.out.println("Visitor " + visitor.getName() + " took the ride.");
-        } else {
-            System.out.println("No visitors in the queue.");
+            count++;
         }
+
+        numOfCycles++;
+        System.out.println("Ride cycle completed. Total cycles: " + numOfCycles);
     }
 
     @Override
