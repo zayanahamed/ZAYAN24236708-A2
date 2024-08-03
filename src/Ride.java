@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,7 +8,7 @@ public class Ride implements RideInterface {
     private String rideType;
     private Employee operator;
     private Queue<Visitor> queue;
-    private LinkedList<Visitor> rideHistory; // Track visitors who have taken the ride
+    private LinkedList<Visitor> rideHistory;
 
     // Default constructor
     public Ride() {
@@ -85,7 +86,7 @@ public class Ride implements RideInterface {
     public void runOneCycle() {
         System.out.println("Running one cycle of the ride...");
         if (!queue.isEmpty()) {
-            Visitor visitor = queue.poll(); // Retrieve and remove the head of the queue
+            Visitor visitor = queue.poll();
             rideHistory.add(visitor);
             System.out.println("Visitor " + visitor.getName() + " took the ride.");
         } else {
@@ -103,7 +104,7 @@ public class Ride implements RideInterface {
         }
     }
 
-    // New methods for Part 4A
+    // Methods for Part 4A
     public void addVisitorToHistory(Visitor visitor) {
         if (rideHistory.add(visitor)) {
             System.out.println("Visitor " + visitor.getName() + " has been added to the ride history.");
@@ -118,5 +119,11 @@ public class Ride implements RideInterface {
 
     public int getNumberOfVisitorsInHistory() {
         return rideHistory.size();
+    }
+
+    // Method for Part 4B - Sorting the ride history
+    public void sortRideHistory() {
+        Collections.sort(rideHistory, new VisitorComparator());
+        System.out.println("Ride history has been sorted.");
     }
 }

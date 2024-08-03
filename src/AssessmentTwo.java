@@ -3,6 +3,7 @@ public class AssessmentTwo {
         AssessmentTwo assessment = new AssessmentTwo();
         assessment.partThree();
         assessment.partFourA();
+        assessment.partFourB();
     }
 
     public void partThree() {
@@ -59,7 +60,33 @@ public class AssessmentTwo {
     }
 
     public void partFourB() {
-        // Implementation for part 4B
+        // Create a new Ride object
+        Ride ride = new Ride("Ferris Wheel", "Leisure", null);
+
+        // Create Visitor objects
+        Visitor visitor1 = new Visitor("John Doe", 25, "123 Elm Street", "T12345", false);
+        Visitor visitor2 = new Visitor("Jane Smith", 30, "456 Oak Avenue", "T12346", true);
+        Visitor visitor3 = new Visitor("Alice Johnson", 22, "789 Pine Road", "T12347", false);
+        Visitor visitor4 = new Visitor("Bob Brown", 28, "101 Maple Drive", "T12348", true);
+        Visitor visitor5 = new Visitor("Charlie Davis", 35, "202 Birch Lane", "T12349", false);
+
+        // Add visitors to the ride history
+        ride.addVisitorToHistory(visitor1);
+        ride.addVisitorToHistory(visitor2);
+        ride.addVisitorToHistory(visitor3);
+        ride.addVisitorToHistory(visitor4);
+        ride.addVisitorToHistory(visitor5);
+
+        // Print all visitors in the ride history before sorting
+        System.out.println("Ride history before sorting:");
+        ride.printRideHistory();
+
+        // Sort the ride history
+        ride.sortRideHistory();
+
+        // Print all visitors in the ride history after sorting
+        System.out.println("Ride history after sorting:");
+        ride.printRideHistory();
     }
 
     public void partFive() {
