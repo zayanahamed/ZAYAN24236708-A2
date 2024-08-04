@@ -1,21 +1,45 @@
 public class AssessmentTwo {
+
     public static void main(String[] args) {
-        AssessmentTwo assessment = new AssessmentTwo();
-        assessment.partThree();
-        assessment.partFourA();
-        assessment.partFourB();
-        assessment.partFive();
+        partThree();
+        partFourA();
+        partFourB();
+        partFive();
     }
 
-    public void partThree() {
+    public static void partThree(){
+        Employee employee = new Employee("Emily Smith", 25, "88 High Street", "Water Ride Operator", 30000);
+
+        Ride ride = new Ride("Water Riders", 5, employee, 5, 1);
+
+        // Add a minimum of 5 Visitors to the Queue
+        Visitor visitor1 = new Visitor("Mitchell Marsh", 20, "42 Smith Street", "Ticket" + 1, true);
+        ride.AddVisitorToQueue(visitor1);
+
+        Visitor visitor2 = new Visitor("Sean Abbott", 23, "11 King Street", "Ticket" + 2, false);
+        ride.AddVisitorToQueue(visitor2);
+
+        Visitor visitor3 = new Visitor("Alex Carey", 29, "3 Banksia Street", "Ticket" + 3, false);
+        ride.AddVisitorToQueue(visitor3);
+
+        Visitor visitor4 = new Visitor("Nathan Ellis", 35, "88 High Street", "Ticket" + 4, true);
+        ride.AddVisitorToQueue(visitor4);
+
+        Visitor visitor5 = new Visitor("Jake Fraser", 15, "5 Bayview Terrace", "Ticket" + 5, true);
+        ride.AddVisitorToQueue(visitor5);
+
+        // Remove a Visitor from the Queue
+        ride.RemoveVisitorToQueue(visitor5);
+
+        // Print all Visitors in the Queue
+        ride.PrintQueue();
+    }
+
+    public static void partFourA() {
         // Implementation from previous part
     }
 
-    public void partFourA() {
-        // Implementation from previous part
-    }
-
-    public void partFourB() {
+    public static void partFourB() {
         // Implementation from previous part
     }
 
@@ -69,11 +93,11 @@ public class AssessmentTwo {
         ride.PrintRideHistory();
     }
 
-    public void partSix() {
+    public static void partSix() {
         // Implementation for part 6
     }
 
-    public void partSeven() {
+    public static void partSeven() {
         // Implementation for part 7
     }
 }
