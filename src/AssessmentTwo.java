@@ -44,7 +44,7 @@ public class AssessmentTwo {
         // Implementation from previous part
     }
 
-    public static void partFive(){
+    public void partFive(){
 
         // Create a new Ride object
         Employee employee = new Employee("Thomas Wilson", 25, "62 Ocean Parade", "Roller Coaster Operator", 40000);
