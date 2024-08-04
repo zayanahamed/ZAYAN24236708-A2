@@ -1,9 +1,10 @@
 public class AssessmentTwo {
     public static void main(String[] args) {
-        partThree();
-        partFourA();
-        partFourB();
-        partFive();
+        AssessmentTwo assessment = new AssessmentTwo();
+        assessment.partThree();
+        assessment.partFourA();
+        assessment.partFourB();
+        assessment.partFive();
         
     }
 
