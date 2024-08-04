@@ -19,52 +19,54 @@ public class AssessmentTwo {
         // Implementation from previous part
     }
 
-    public void partFive() {
-        // Create a new Ride object with a maximum rider capacity
-        Ride ride = new Ride("Ferris Wheel", "Leisure", null, 3);
+    public static void partFive(){
 
-        // Create Visitor objects
-        Visitor visitor1 = new Visitor("John Doe", 25, "123 Elm Street", "T12345", false);
-        Visitor visitor2 = new Visitor("Jane Smith", 30, "456 Oak Avenue", "T12346", true);
-        Visitor visitor3 = new Visitor("Alice Johnson", 22, "789 Pine Road", "T12347", false);
-        Visitor visitor4 = new Visitor("Bob Brown", 28, "101 Maple Drive", "T12348", true);
-        Visitor visitor5 = new Visitor("Charlie Davis", 35, "202 Birch Lane", "T12349", false);
-        Visitor visitor6 = new Visitor("Eve Adams", 29, "303 Cedar Street", "T12350", true);
-        Visitor visitor7 = new Visitor("Frank Hill", 32, "404 Elm Avenue", "T12351", false);
-        Visitor visitor8 = new Visitor("Grace Lee", 40, "505 Oak Road", "T12352", true);
-        Visitor visitor9 = new Visitor("Hannah Clark", 27, "606 Pine Lane", "T12353", false);
-        Visitor visitor10 = new Visitor("Ian Wright", 33, "707 Maple Street", "T12354", true);
+        // Create a new Ride object
+        Employee employee = new Employee("Thomas Wilson", 25, "62 Ocean Parade", "Roller Coaster Operator", 40000);
+        Ride ride = new Ride("Roller Coaster", 3, employee, 5, 4);
 
-        // Add visitors to the queue
-        ride.addVisitorToQueue(visitor1);
-        ride.addVisitorToQueue(visitor2);
-        ride.addVisitorToQueue(visitor3);
-        ride.addVisitorToQueue(visitor4);
-        ride.addVisitorToQueue(visitor5);
-        ride.addVisitorToQueue(visitor6);
-        ride.addVisitorToQueue(visitor7);
-        ride.addVisitorToQueue(visitor8);
-        ride.addVisitorToQueue(visitor9);
-        ride.addVisitorToQueue(visitor10);
+        // Add a minimum of 5 Visitor to the collection
+        Visitor visitor1 = new Visitor("Mitchell Marsh", 40, "30, Hech street", "Ticket" + 99, false);
+        ride.AddVisitorToQueue(visitor1);
 
-        // Print all visitors in the queue
-        System.out.println("Visitors in queue before running a cycle:");
-        ride.printQueue();
+        Visitor visitor2 = new Visitor("Sean Abbott", 23, "42 Smith Street", "Ticket" + 22, false);
+        ride.AddVisitorToQueue(visitor2);
 
-        // Assign an operator
-        Employee operator = new Employee("Alice Brown", 5, "Park Staff", "Maintenance", "1234");
-        ride.assignOperator(operator);
+        Visitor visitor3 = new Visitor("Alex Carey", 29, "15 Johnson Avenue", "Ticket" + 11, false);
+        ride.AddVisitorToQueue(visitor3);
+
+        Visitor visitor4 = new Visitor("Nathan Ellis", 35, "7 Bond Street", "Ticket" + 33, true);
+        ride.AddVisitorToQueue(visitor4);
+
+        Visitor visitor5 = new Visitor("Jake Fraser", 15, "29 Beach Road", "Ticket" + 66, true);
+        ride.AddVisitorToQueue(visitor5);
+
+        Visitor visitor6 = new Visitor("Cameron Green", 40, "29 Beach Road", "Ticket" + 65, false);
+        ride.AddVisitorToQueue(visitor6);
+
+        Visitor visitor7 = new Visitor("Aaron Hardie", 23, "6 Manning Street", "Ticket" + 45, true);
+        ride.AddVisitorToQueue(visitor7);
+
+        Visitor visitor8 = new Visitor("Josh Hazlewood", 29, "33 Adelaide Terrace", "Ticket" + 87, false);
+        ride.AddVisitorToQueue(visitor8);
+
+        Visitor visitor9 = new Visitor("DA Warner", 35, "14 Flinders Lane", "Ticket" + 67, true);
+        ride.AddVisitorToQueue(visitor9);
+
+        Visitor visitor10 = new Visitor("PJ Cummins", 15, "9 Bay Street", "Ticket" + 21, true);
+        ride.AddVisitorToQueue(visitor10);
+
+        // Print all Visitors in the Queue
+        ride.PrintQueue();
 
         // Run one cycle
-        ride.runOneCycle();
+        ride.RunOneCycle();
 
-        // Print all visitors in the queue after running a cycle
-        System.out.println("Visitors in queue after running one cycle:");
-        ride.printQueue();
+        // Print all Visitors in the Queue
+        ride.PrintQueue();
 
-        // Print all visitors in the collection
-        System.out.println("Ride history:");
-        ride.printRideHistory();
+        // Print all Visitors in the collection
+        ride.PrintRideHistory();
     }
 
     public void partSix() {

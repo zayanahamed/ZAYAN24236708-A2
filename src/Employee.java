@@ -1,31 +1,30 @@
-public class Employee extends Person {
-    private String employeeId;
-    private String position;
+public class Employee extends Person{
 
-    // Default constructor
-    public Employee() {}
+    private String designation;
+    private long salary;
+// Default constructor
+    public Employee() {
+    }
 
-    // Parameterized constructor
-    public Employee(String name, int age, String address, String employeeId, String position) {
+    public Employee(String name, int age, String address, String designation, long salary) {
         super(name, age, address);
-        this.employeeId = employeeId;
-        this.position = position;
+        this.designation = designation;
+        this.salary = salary;
     }
-
-    // Getters and setters
-    public String getEmployeeId() {
-        return employeeId;
+    // Getter
+    public String getDesignation() {
+        return designation;
     }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    // Setter
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
-
-    public String getPosition() {
-        return position;
+    // Getter
+    public long getSalary() {
+        return salary;
     }
-
-    public void setPosition(String position) {
-        this.position = position;
+    // Setter
+    public void setSalary(long salary) {
+        this.salary = salary;
     }
 }

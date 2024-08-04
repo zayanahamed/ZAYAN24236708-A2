@@ -1,34 +1,40 @@
+import java.io.*;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Ride implements RideInterface {
+
     private String rideName;
-    private String rideType;
-    private Employee operator;
-    private Queue<Visitor> queue;
-    private LinkedList<Visitor> rideHistory;
+    private int rating;
+    private Employee employee;
+
+    private final Queue<Visitor> queue;
+    private final LinkedList<Visitor> rideHistory;
     private int maxRider;
     private int numOfCycles;
+    private final Lock lock;
 
     // Default constructor
     public Ride() {
-        this.queue = new LinkedList<>();
-        this.rideHistory = new LinkedList<>();
-        this.maxRider = 1; // Default value
-        this.numOfCycles = 0;
+        queue = new LinkedList<>();
+        rideHistory = new LinkedList<>();
+        lock = new ReentrantLock();
     }
 
-    // Parameterized constructor
-    public Ride(String rideName, String rideType, Employee operator, int maxRider) {
+    public Ride(String rideName, int rating, Employee employee, int maxRider, int numOfCycles) {
         this.rideName = rideName;
-        this.rideType = rideType;
-        this.operator = operator;
+        this.rating = rating;
+        this.employee = employee;
+        this.maxRider = maxRider;
+        this.numOfCycles = numOfCycles;
         this.queue = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
-        this.maxRider = maxRider;
-        this.numOfCycles = 0;
+        this.lock = new ReentrantLock();
+
     }
 
     // Getters and setters
@@ -40,120 +46,244 @@ public class Ride implements RideInterface {
         this.rideName = rideName;
     }
 
-    public String getRideType() {
-        return rideType;
+    public int getRating() {
+        return rating;
     }
 
-    public void setRideType(String rideType) {
-        this.rideType = rideType;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public Employee getOperator() {
-        return operator;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setOperator(Employee operator) {
-        this.operator = operator;
-    }
-
-    public int getMaxRider() {
-        return maxRider;
-    }
-
-    public void setMaxRider(int maxRider) {
-        this.maxRider = maxRider;
-    }
-
-    public int getNumOfCycles() {
-        return numOfCycles;
-    }
-
-    // Method to assign an Employee to operate the ride
-    public void assignOperator(Employee operator) {
-        this.operator = operator;
+    // Method to assign an Employee
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     // Interface methods
     @Override
-    public void addVisitorToQueue(Visitor visitor) {
-        if (queue.add(visitor)) {
-            System.out.println("Visitor " + visitor.getName() + " has been added to the queue.");
-        } else {
-            System.out.println("Failed to add visitor " + visitor.getName() + " to the queue.");
-        }
+    public void AddVisitorToQueue(Visitor visitor) {
+        queue.add(visitor);
+        System.out.println(visitor.getName() + " successfully added to the queue.");
     }
 
     @Override
-    public void removeVisitorFromQueue(Visitor visitor) {
+    public void RemoveVisitorToQueue(Visitor visitor) {
+
         if (queue.remove(visitor)) {
-            System.out.println("Visitor " + visitor.getName() + " has been removed from the queue.");
+
+            System.out.println(visitor.getName() + " removed from the queue.");
+
         } else {
-            System.out.println("Visitor " + visitor.getName() + " is not in the queue.");
+
+            System.out.println(visitor.getName() + " not found in the queue.");
         }
     }
 
     @Override
-    public void printQueue() {
-        System.out.println("Queue: ");
-        for (Visitor v : queue) {
-            System.out.println("Name: " + v.getName() + ", Age: " + v.getAge() + ", Address: " + v.getAddress());
+    public void PrintQueue() {
+
+        for (Visitor visitor : queue) {
+
+            System.out.println(visitor.getName() +", "+ visitor.getAge() +", "+ visitor.getAddress() +", "+ visitor.getTicketNum() +", "+ visitor.isPremium());
         }
     }
 
     @Override
-    public void runOneCycle() {
-        if (operator == null) {
-            System.out.println("No ride operator assigned. Cannot run the ride.");
-            return;
+    public void RunOneCycle() {
+
+        lock.lock();
+
+        try {
+
+            if (employee == null) {
+
+                System.out.println("No operator assigned to the ride. Cannot run the ride.");
+
+                return;
+            }
+
+            if (queue.isEmpty()) {
+
+                System.out.println("No visitors in the queue. Cannot run the ride.");
+
+                return;
+            }
+
+            int riders = Math.min(maxRider, queue.size());
+
+            for (int i = 0; i < riders; i++) {
+
+                Visitor visitor = queue.poll();
+
+                if (visitor != null) {
+
+                    rideHistory.add(visitor);
+
+                    System.out.println(visitor.getName() + " took the ride.");
+                }
+            }
+
+            numOfCycles++;
+
+        } finally {
+
+            lock.unlock();
         }
 
-        if (queue.isEmpty()) {
-            System.out.println("No visitors in the queue. Cannot run the ride.");
-            return;
-        }
+    }
 
-        int count = 0;
-        while (count < maxRider && !queue.isEmpty()) {
-            Visitor visitor = queue.poll();
+    @Override
+    public void PrintRideHistory() {
+
+        lock.lock();
+
+        try {
+
+            System.out.println("Visitors who took the ride:");
+
+            Iterator<Visitor> iterator = rideHistory.iterator();
+
+            while (iterator.hasNext()) {
+
+                System.out.println(iterator.next().getName());
+
+            }
+
+        } finally {
+
+            lock.unlock();
+        }
+    }
+
+    public void addVisitorToCollection(Visitor visitor) {
+
+        lock.lock();
+
+        try {
+
             rideHistory.add(visitor);
-            System.out.println("Visitor " + visitor.getName() + " took the ride.");
-            count++;
-        }
 
-        numOfCycles++;
-        System.out.println("Ride cycle completed. Total cycles: " + numOfCycles);
-    }
+            System.out.println(visitor.getName() + " added to the ride history.");
 
-    @Override
-    public void printRideHistory() {
-        System.out.println("Ride history: ");
-        Iterator<Visitor> iterator = rideHistory.iterator();
-        while (iterator.hasNext()) {
-            Visitor visitor = iterator.next();
-            System.out.println("Name: " + visitor.getName() + ", Age: " + visitor.getAge() + ", Address: " + visitor.getAddress());
+        } finally {
+
+            lock.unlock();
         }
     }
 
-    // Methods for Part 4A
-    public void addVisitorToHistory(Visitor visitor) {
-        if (rideHistory.add(visitor)) {
-            System.out.println("Visitor " + visitor.getName() + " has been added to the ride history.");
-        } else {
-            System.out.println("Failed to add visitor " + visitor.getName() + " to the ride history.");
+    public boolean isVisitorInCollection(Visitor visitor) {
+
+        lock.lock();
+
+        try {
+
+            return rideHistory.contains(visitor);
+
+        } finally {
+
+            lock.unlock();
         }
     }
 
-    public boolean isVisitorInHistory(Visitor visitor) {
-        return rideHistory.contains(visitor);
+    public int getNumberOfVisitorsInCollection() {
+
+        lock.lock();
+
+        try {
+
+            return rideHistory.size();
+
+        } finally {
+
+            lock.unlock();
+        }
     }
 
-    public int getNumberOfVisitorsInHistory() {
-        return rideHistory.size();
+    public void sortVisitorsInCollection(VisitorComparator comparator) {
+
+        lock.lock();
+
+        try {
+
+            Collections.sort(rideHistory, comparator);
+
+            System.out.println("Ride history sorted.");
+
+        } finally {
+
+            lock.unlock();
+        }
     }
 
-    // Method for Part 4B - Sorting the ride history
-    public void sortRideHistory() {
-        Collections.sort(rideHistory, new VisitorComparator());
-        System.out.println("Ride history has been sorted.");
+    public void writeVisitorsToFile(String filename) {
+
+        lock.lock();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+
+            Iterator<Visitor> iterator = rideHistory.iterator();
+
+            while (iterator.hasNext()) {
+
+                Visitor visitor = iterator.next();
+
+                writer.write(visitor.getName() + "," + visitor.getAge() + "," + visitor.getAddress() + "," + visitor.getTicketNum() + "," + visitor.isPremium());
+
+                writer.newLine();
+            }
+
+            System.out.println("Visitors written to file: " + filename);
+
+        } catch (IOException e) {
+
+            System.out.println("Error writing to file: " + e.getMessage());
+
+        } finally {
+
+            lock.unlock();
+        }
     }
+
+    public void readVisitorsFromFile(String filename) {
+
+        lock.lock();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] details = line.split(",");
+
+                Visitor visitor = new Visitor(details[0], Integer.parseInt(details[1]), details[2], details[3], Boolean.parseBoolean(details[4]));
+
+                rideHistory.add(visitor);
+            }
+
+            System.out.println("Visitors read from file: " + filename);
+
+        } catch (IOException e) {
+
+            System.out.println("Error reading from file: " + e.getMessage());
+
+        } finally {
+
+            lock.unlock();
+        }
+    }
+
+}
+
+interface RideInterface{
+
+    void AddVisitorToQueue(Visitor visitor);
+    void RemoveVisitorToQueue(Visitor visitor);
+    void PrintQueue();
+    void RunOneCycle();
+    void PrintRideHistory();
 }

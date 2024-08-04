@@ -1,31 +1,31 @@
 public class Visitor extends Person {
-    private String ticketNumber;
-    private boolean hasAnnualPass;
+    private String ticketNum;
+    private boolean isPremium;
 
     // Default constructor
     public Visitor() {}
 
     // Parameterized constructor
-    public Visitor(String name, int age, String address, String ticketNumber, boolean hasAnnualPass) {
+    public Visitor(String name, int age, String address, String ticketNum, boolean isPremium) {
         super(name, age, address);
-        this.ticketNumber = ticketNumber;
-        this.hasAnnualPass = hasAnnualPass;
+        this.ticketNum = ticketNum;
+        this.isPremium = isPremium;
     }
 
     // Getters and setters
-    public String getTicketNumber() {
-        return ticketNumber;
+    public String getTicketNum() {
+        return ticketNum;
     }
 
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
+    public void setTicketNum(String ticketNum) {
+        this.ticketNum = ticketNum;
     }
 
-    public boolean isHasAnnualPass() {
-        return hasAnnualPass;
+    public boolean isPremium() {
+        return isPremium;
     }
 
-    public void setHasAnnualPass(boolean hasAnnualPass) {
-        this.hasAnnualPass = hasAnnualPass;
+    public void setPremium(boolean premium) {
+        isPremium = premium;
     }
 }
