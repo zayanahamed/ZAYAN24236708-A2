@@ -37,7 +37,34 @@ public class AssessmentTwo {
     }
 
     public void partFourA() {
-        // Implementation from previous part
+        // Create a new Ride object
+        Employee employee = new Employee("Jack Williams", 25, "5 Bayview Terrace", "Roller Coaster Operator", 40000);
+        Ride ride = new Ride("Roller Coaster", 3, employee, 5, 2);
+
+        // Add a minimum of 5 Visitor to the collection
+        Visitor visitor1 = new Visitor("Mitchell Marsh", 40, "30, Hech street", "Ticket" + 99, false);
+        ride.addVisitorToCollection(visitor1);
+
+        Visitor visitor2 = new Visitor("Sean Abbott", 23, "42 Smith Street", "Ticket" + 22, false);
+        ride.addVisitorToCollection(visitor2);
+
+        Visitor visitor3 = new Visitor("Alex Carey", 29, "15 Johnson Avenue", "Ticket" + 11, false);
+        ride.addVisitorToCollection(visitor3);
+
+        Visitor visitor4 = new Visitor("Nathan Ellis", 35, "7 Bond Street", "Ticket" + 33, true);
+        ride.addVisitorToCollection(visitor4);
+
+        Visitor visitor5 = new Visitor("Jake Fraser", 15, "29 Beach Road", "Ticket" + 66, true);
+        ride.addVisitorToCollection(visitor5);
+
+        // Check if a Visitor is in the collection
+        System.out.println("Is Visitor 3 in the collection? " + ride.isVisitorInCollection(visitor3));
+
+        // Print the number of Visitor in the collection
+        System.out.println("Number of visitors in the collection: " + ride.getNumberOfVisitorsInCollection());
+
+        // Print all Visitors in the collection
+        ride.PrintRideHistory();
     }
 
     public void partFourB() {
