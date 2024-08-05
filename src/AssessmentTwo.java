@@ -68,7 +68,33 @@ public class AssessmentTwo {
     }
 
     public void partFourB() {
-        // Implementation from previous part
+        Employee employee = new Employee("Olivia Brown", 25, "20 Main Road Glenelg SA 5045", "Roller Coaster Operator", 40000);
+        Ride ride = new Ride("Roller Coaster", 3, employee, 5, 3);
+
+        // Add a minimum of 5 Visitor to the collection
+        Visitor visitor1 = new Visitor("Mitchell Marsh", 10, "30, Hech street", "Ticket" + 99, false);
+        ride.addVisitorToCollection(visitor1);
+
+        Visitor visitor2 = new Visitor("Sean Abbott", 22, "42 Smith Street", "Ticket" + 22, false);
+        ride.addVisitorToCollection(visitor2);
+
+        Visitor visitor3 = new Visitor("Alex Carey", 20, "15 Johnson Avenue", "Ticket" + 11, false);
+        ride.addVisitorToCollection(visitor3);
+
+        Visitor visitor4 = new Visitor("Nathan Ellis", 30, "7 Bond Street", "Ticket" + 33, true);
+        ride.addVisitorToCollection(visitor4);
+
+        Visitor visitor5 = new Visitor("Jake Fraser", 8, "29 Beach Road", "Ticket" + 66, true);
+        ride.addVisitorToCollection(visitor5);
+
+        // Print all Visitors in the collection
+        ride.PrintRideHistory();
+
+        // Sort the collection
+        ride.sortVisitorsInCollection(new VisitorComparator());
+
+        // Print all Visitors in the collection again to show that the collection has been sorted
+        ride.PrintRideHistory();
     }
 
     public void partFive(){
