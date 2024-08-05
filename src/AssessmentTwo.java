@@ -1,14 +1,15 @@
 public class AssessmentTwo {
     public static void main(String[] args) {
-        AssessmentTwo assessment = new AssessmentTwo();
-        assessment.partThree();
-        assessment.partFourA();
-        assessment.partFourB();
-        assessment.partFive();
+        partThree();
+        partFourA();
+        partFourB();
+        partFive();
+        partSix();
+        partSeven();
         
     }
 
-    public void partThree() {
+    public static void partThree() {
         Employee employee = new Employee("Emily Smith", 25, "88 High Street", "Water Ride Operator", 30000);
 
         Ride ride = new Ride("Water Riders", 5, employee, 5, 1);
@@ -36,7 +37,7 @@ public class AssessmentTwo {
         ride.PrintQueue();
     }
 
-    public void partFourA() {
+    public static void partFourA() {
         // Create a new Ride object
         Employee employee = new Employee("Jack Williams", 25, "5 Bayview Terrace", "Roller Coaster Operator", 40000);
         Ride ride = new Ride("Roller Coaster", 3, employee, 5, 2);
@@ -67,7 +68,7 @@ public class AssessmentTwo {
         ride.PrintRideHistory();
     }
 
-    public void partFourB() {
+    public static void partFourB() {
         Employee employee = new Employee("Olivia Brown", 25, "20 Main Road Glenelg SA 5045", "Roller Coaster Operator", 40000);
         Ride ride = new Ride("Roller Coaster", 3, employee, 5, 3);
 
@@ -97,7 +98,7 @@ public class AssessmentTwo {
         ride.PrintRideHistory();
     }
 
-    public void partFive(){
+    public static void partFive(){
 
         // Create a new Ride object
         Employee employee = new Employee("Thomas Wilson", 25, "62 Ocean Parade", "Roller Coaster Operator", 40000);
@@ -147,7 +148,7 @@ public class AssessmentTwo {
         ride.PrintRideHistory();
     }
 
-    public void partSix() {
+    public static void partSix() {
         Employee employee = new Employee("Charlotte Taylor", 25, "18 George Street", "Roller Coaster Operator", 40000);
         Ride ride = new Ride("Roller Coaster", 3, employee, 5, 5);
 
@@ -172,7 +173,7 @@ public class AssessmentTwo {
 
     }
 
-    public void partSeven() {
+    public static void partSeven() {
         // Implementation for part 7
     }
 }
