@@ -174,6 +174,17 @@ public class AssessmentTwo {
     }
 
     public static void partSeven() {
-        // Implementation for part 7
+        
+        // Create a new Ride object
+        Ride ride = new Ride();
+
+        // Import the Visitors from the file
+        ride.readVisitorsFromFile("ride_history.csv");
+
+        // Print the number of Visitors in the LinkedList
+        System.out.println("Number of visitors in the LinkedList: " + ride.getNumberOfVisitorsInCollection());
+
+        // Print all Visitors in the LinkedList
+        ride.PrintRideHistory();
     }
 }
